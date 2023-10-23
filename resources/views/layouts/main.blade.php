@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html class="page" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,7 +8,36 @@
     <title>Document</title>
     @vite(['resources/scss/app.scss'])
 </head>
-<body>
+<body class="page__body" >
+
+        <header class="header">
+            <div class="container">
+                <div class="search">
+                    <div class="search__icon"></div><p>@lang('Поиск')</p>
+                </div>
+                <nav class="nav">
+                    <ul>
+                        <li><a href="#">@lang('Игрушки')</a></li>
+                        <li><a href="#">@lang('О нас')</a></li>
+                        <li><a href="#"><span class="shopping-cart-icon"></span> @lang('Корзина')</a></li>
+                    </ul>
+                </nav>
+                <div class="login">
+                    <a href="#">@lang('Вход')</a>
+                    <a href="#">@lang('Регистрация')</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            @yield('content')
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+
+            </div>
+        </footer>
 
 </body>
 </html>

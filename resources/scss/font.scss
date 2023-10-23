@@ -1,0 +1,55 @@
+@import "font-var";
+
+@font-face {
+  font-family: '#{$sts-font-family}';
+  src:  url('#{$sts-font-path}/#{$sts-font-family}.eot?4zzjti');
+  src:  url('#{$sts-font-path}/#{$sts-font-family}.eot?4zzjti#iefix') format('embedded-opentype'),
+    url('#{$sts-font-path}/#{$sts-font-family}.ttf?4zzjti') format('truetype'),
+    url('#{$sts-font-path}/#{$sts-font-family}.woff?4zzjti') format('woff'),
+    url('#{$sts-font-path}/#{$sts-font-family}.svg?4zzjti##{$sts-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$sts-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-star {
+  &:before {
+    content: $icon-star;
+  }
+}
+.icon-arrow-up {
+  &:before {
+    content: $icon-arrow-up;
+  }
+}
+.icon-arrow-down {
+  &:before {
+    content: $icon-arrow-down;
+  }
+}
+.icon-shopping-cart {
+  &:before {
+    content: $icon-shopping-cart;
+  }
+}
+.icon-loupe {
+  &:before {
+    content: $icon-loupe;
+  }
+}
+

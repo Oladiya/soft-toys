@@ -17,7 +17,14 @@
                             <span class="rating @if($j <= $rating) rating_active-star @endif "></span>
                         @endfor
                     </div>
-                    <a href="{{ route('products.edit', $product->id) }}" class="product__button">@lang('Редактировать')</a>
+                    <form method="post" action="{{ route('products.destroy', $product->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="product__admin-button product__admin-button_delete" type="submit">@lang('Удалить')</button>
+                    </form>
+
+                    <a class="product__admin-button product__admin-button_redact" href="{{ route('products.edit', $product->id) }}">@lang('Редактировать')</a>
+                    <a class="product__button" href="#">@lang('Посмотреть')</a>
                 </div>
 
             @endforeach

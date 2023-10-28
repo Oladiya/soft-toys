@@ -12,6 +12,7 @@
         display: flex;
         flex-direction: column;
         background-color: $color-2;
+        align-items: center;
     }
 }
 
@@ -25,7 +26,7 @@
     & .container {
         background-color: $color-4;
         height: 90px;
-        width: 1400px;
+        width: min(95vw, 1400px);
         border-radius: 45px;
         display: flex;
         justify-content: space-between;
@@ -34,6 +35,10 @@
 
 .main {
     flex: 1;
+    width: min(94vw, 1400px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .footer {
@@ -112,9 +117,12 @@
 .row {
     display: flex;
     justify-content: center;
-    width: 100%;
-    height: 100%;
+
+    &_between {
+        justify-content: space-between;
+    }
 }
+
 
 .column {
     display: flex;
@@ -160,7 +168,6 @@ h3 {
 
 .product {
     width: 240px;
-    height: 310px;
     background-color: $color-1;
     border-radius: 32px;
     position: relative;
@@ -178,6 +185,10 @@ h3 {
         color: $color-5;
         margin-top: 4px;
         margin-left: 12px;
+
+        &:after {
+            content: ' ₽';
+        }
     }
 
     &__name {
@@ -225,12 +236,146 @@ h3 {
 }
 
 .grid {
-    width: 60vw;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
+    justify-content: space-evenly;
 }
 
 .filters {
     height: 200px;
+}
+
+.content {
+    width: 100%;
+}
+
+.admin-block {
+    width: auto;
+    height: 200px;
+    background-color: $color-3;
+    margin: 20px;
+    border-radius: 25px;
+    border: 3px solid $color-4;
+
+    &__button {
+        display: block;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        color: $color-5;
+        background-color: $color-2;
+        padding: 5px;
+        text-align: center;
+        border-radius: 16px;
+        border: 3px solid $color-1;
+        width: 120px;
+        margin: 12px 20px;
+    }
+}
+
+.form {
+
+    margin: 20px;
+    width: auto;
+    background-color: $color-1;
+    border-radius: 25px;
+    border: 2px solid $color-4;
+    color: $color-5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    &__title {
+
+        padding: 12px;
+        font-weight: bold;
+    }
+
+    &__item {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+
+
+        & label {
+
+            font-size: 20px;
+        }
+
+        & input, & textarea, & select {
+
+            width: 60vw;
+            padding: 6px;
+            border-radius: 16px;
+            border: 2px solid $color-5;
+            background-color: $color-4;
+            color: $color-1;
+
+            &:focus {
+
+                border-color: $color-5;
+                box-shadow: none;
+                outline: 0;
+                background-color: $color-2;
+                color: $color-5;
+            }
+        }
+        & textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        & select {
+            width: auto;
+        }
+        &_small {
+            & input {
+                width: auto;
+            }
+        }
+        &_medium {
+            & input {
+                width: 25vw;
+            }
+        }
+
+        & img {
+            width: 22vw;
+            padding: 10px;
+        }
+    }
+
+    &__container {
+        display: flex;
+        width: calc(60vw + 6px * 2);
+        justify-content: space-between;
+    }
+
+    &__button {
+
+        display: block;
+        padding: 5px 0;
+        width: 120px;
+        background-color: $color-4;
+        border: 3px solid $color-2;
+        border-radius: 16px;
+        color: $color-1;
+        margin: 10px;
+        text-decoration: none;
+        text-align: center;
+        font-size: 14px;
+
+        &:focus, &:hover {
+
+            border-color: $color-4;
+            box-shadow: none;
+            outline: 0;
+            background-color: $color-3;
+            color: $color-5;
+        }
+    }
 }

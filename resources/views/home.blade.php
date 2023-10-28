@@ -22,12 +22,12 @@
         <div class="content">
             <div class="grid">
 
-                @for($i = 0; $i<12; $i++)
+                @foreach($products as $product)
 
                     <div class="product">
-                        <img class="product__image" src=" {{ \Illuminate\Support\Facades\Vite::asset('resources/images/toy1.jpg') }}" alt="">
-                        <p class="product__price">1 503 ₽</p>
-                        <p class="product__name">Название товара</p>
+                        <img class="product__image" src="{{ \Illuminate\Support\Facades\Storage::url($product->img_uri) }}" alt="">
+                        <p class="product__price">{{ $product->price }}</p>
+                        <p class="product__name">{{ $product->name }}</p>
                         <div class="product__rate">
                             @php($rating = rand(1,5))
                             @for($j = 1; $j<=5; $j++)
@@ -37,7 +37,7 @@
                         <a href="#" class="product__button">В корзину</a>
                     </div>
 
-                @endfor
+                @endforeach
 
             </div>
         </div>

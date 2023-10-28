@@ -233,6 +233,43 @@ h3 {
         left: 20px;
         right: 20px;
     }
+
+    &__admin-button {
+        display: block;
+        padding: 5px 0;
+        width: 120px;
+        background-color: $color-4;
+        border: 3px solid $color-2;
+        border-radius: 16px;
+        color: $color-1;
+        margin: 10px;
+        text-decoration: none;
+        text-align: center;
+        font-size: 14px;
+
+        &:focus, &:hover {
+
+            border-color: $color-4;
+            box-shadow: none;
+            outline: 0;
+            background-color: $color-3;
+            color: $color-5;
+        }
+        &_redact {
+            &:before {
+                font-family: $sts-font-family;
+                content: $icon-pen ' ';
+                font-size: 11px;
+            }
+        }
+        &_delete {
+            &:before {
+                font-family: $sts-font-family;
+                content: $icon-close ' ';
+                font-size: 10px;
+            }
+        }
+    }
 }
 
 .grid {

@@ -27,29 +27,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-close {
+    &:before {
+        content: $icon-close;
+    }
+}
+.icon-pen {
+    &:before {
+        content: $icon-pen;
+    }
+}
 .icon-star {
-  &:before {
-    content: $icon-star;
-  }
+    &:before {
+        content: $icon-star;
+    }
 }
 .icon-arrow-up {
-  &:before {
-    content: $icon-arrow-up;
-  }
+    &:before {
+        content: $icon-arrow-up;
+    }
 }
 .icon-arrow-down {
-  &:before {
-    content: $icon-arrow-down;
-  }
+    &:before {
+        content: $icon-arrow-down;
+    }
 }
 .icon-shopping-cart {
-  &:before {
-    content: $icon-shopping-cart;
-  }
+    &:before {
+        content: $icon-shopping-cart;
+    }
 }
 .icon-loupe {
-  &:before {
-    content: $icon-loupe;
-  }
+    &:before {
+        content: $icon-loupe;
+    }
 }
 

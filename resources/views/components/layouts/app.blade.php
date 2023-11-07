@@ -7,7 +7,6 @@
         <title>{{ $title ?? 'Page Title' }}</title>
         @vite('resources/scss/app.scss')
     </head>
-    <body>
     <body class="page__body" >
 
     <header class="header">

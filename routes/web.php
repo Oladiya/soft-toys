@@ -15,15 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
 
-Route::prefix('products')->name('products.')->group( function () {
+Route::prefix('products')
+    ->name('products.')
+    ->group(function () {
 
-    Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('/create', [ProductController::class, 'create'])->name('create');
-    Route::post('/', [ProductController::class, 'store'])->name('store');
-    Route::get('/{id}', [ProductController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [ProductController::class, 'update'])->name('update');
-    Route::delete('/{id}', [ProductController::class, 'destroy'])->name('destroy');
+        Route::get('/', \App\Livewire\Products\Index::class)
+            ->name('index');
+        Route::get('/create', \App\Livewire\Products\Create::class)
+            ->name('create');
+        Route::get('/{product}', \App\Livewire\Products\Show::class)
+            ->name('show');
+        Route::get('/{product}/edit', \App\Livewire\Products\Edit::class)
+            ->name('edit');
 
-});
+    });

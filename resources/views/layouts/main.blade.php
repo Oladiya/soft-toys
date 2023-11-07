@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     @vite(['resources/scss/app.scss'])
+    @livewireStyles
 </head>
 <body class="page__body" >
 
@@ -23,6 +24,6 @@
 
             </div>
         </footer>
-
+    @livewireScripts
 </body>
 </html>

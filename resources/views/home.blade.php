@@ -25,9 +25,9 @@
                 @foreach($products as $product)
 
                     <div class="product">
-                        <img class="product__image" src="{{ \Illuminate\Support\Facades\Storage::url($product->img_uri) }}" alt="">
+                        <a href="#"><img class="product__image" src="{{ \Illuminate\Support\Facades\Storage::url($product->img_uri) }}" alt=""></a>
                         <p class="product__price">{{ $product->price }}</p>
-                        <p class="product__name">{{ $product->name }}</p>
+                        <a href="#"><p class="product__name">{{ $product->name }}</p></a>
                         <div class="product__rate">
                             @php($rating = rand(1,5))
                             @for($j = 1; $j<=5; $j++)

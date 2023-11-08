@@ -37,7 +37,7 @@
 .container {
     & .left {
         display: flex;
-        gap: 2vw;
+        gap: 1vw;
     }
 }
 
@@ -93,7 +93,7 @@
         height: 100%;
         width: 100%;
         padding: 0;
-        gap: 5vw;
+        gap: 1.5vw;
     }
     & li {
 
@@ -304,7 +304,6 @@ h3 {
 
 .admin-block {
     width: auto;
-    height: 200px;
     background-color: $color-3;
     margin: 20px;
     border-radius: 25px;
@@ -321,8 +320,8 @@ h3 {
         text-align: center;
         border-radius: 16px;
         border: 3px solid $color-1;
-        width: 120px;
         margin: 12px 20px;
+        height: 40px;
     }
 }
 

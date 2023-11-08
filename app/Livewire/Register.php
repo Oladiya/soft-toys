@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -49,6 +50,17 @@ class Register extends Component
         $validated = $this->validate();
 
         $user = User::create($validated);
+        if (User::count() === 1) {
+            Role::create([
+                'name' => 'admin',
+                'user_id' => $user->id,
+            ]);
+        } else {
+            Role::create([
+                'name' => 'user',
+                'user_id' => $user->id,
+            ]);
+        }
 
         Auth::login($user);
 

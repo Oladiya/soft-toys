@@ -7,7 +7,7 @@
 
         <x-input-text name="name" label="Имя" wire:model="name" />
 
-        <x-input-text name="email" label="Email" wire:model="email" />
+        <x-input-text name="email" label="Email" type="email" wire:model="email" />
 
         <x-input-text name="password" label="Пароль" type="password" wire:model="password" />
 

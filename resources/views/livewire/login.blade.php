@@ -5,7 +5,7 @@
 
         <h1 class="form__title">@lang('Вход')</h1>
 
-        <x-input-text name="email" label="Email" wire:model="email" />
+        <x-input-text name="email" label="Email" type="email" wire:model="email" />
 
         <x-input-text name="password" label="Пароль" type="password" wire:model="password" />
 

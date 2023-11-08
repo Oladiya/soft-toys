@@ -20,6 +20,9 @@
             <a livewire:navigate href="{{ route('register') }}">@lang('Регистрация')</a>
         @endguest
         @auth()
+            @if(Auth::user()->role->name === 'admin')
+                <a wire:navigate href="{{ route('products.index') }}">@lang('Админ <br> Панель')</a>
+            @endif
             <a style="cursor: pointer;" wire:click="logout">@lang('Выйти')</a>
         @endauth
     </div>

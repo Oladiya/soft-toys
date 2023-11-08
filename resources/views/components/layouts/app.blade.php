@@ -12,13 +12,11 @@
     <header class="header">
         @livewire('menu')
     </header>
-
-    <div class="admin-block row">
-
-        <a href="{{ route('products.index') }}" class="admin-block__button">@lang('Список товаров')</a>
-        <a href="{{ route('products.create') }}" class="admin-block__button">@lang('Добавить товар')</a>
-
-    </div>
+    @auth()
+        @if(Auth::user()->role->name === 'admin')
+            @livewire('admin-block')
+        @endif
+    @endauth
 
     <main class="main">
         {{ $slot }}

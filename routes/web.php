@@ -16,11 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])
+Route::get('/', \App\Livewire\Home::class)
     ->name('home');
 
 Route::prefix('products')
     ->name('products.')
+    ->middleware(['auth', 'admin'])
     ->group(function () {
 
         Route::get('/', \App\Livewire\Products\Index::class)

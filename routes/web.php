@@ -28,12 +28,11 @@ Route::prefix('products')
             ->name('index');
         Route::get('/create', \App\Livewire\Products\Create::class)
             ->name('create');
-        Route::get('/{product}', \App\Livewire\Products\Show::class)
-            ->name('show');
         Route::get('/{product}/edit', \App\Livewire\Products\Edit::class)
             ->name('edit');
-
     });
+Route::get('product/{product}', \App\Livewire\Products\Show::class)
+    ->name('products.show');
 
 Route::get('/login', \App\Livewire\Login::class)
     ->name('login');

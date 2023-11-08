@@ -132,7 +132,7 @@ class Edit extends Component
 
         $this->product->update($validated);
 
-        return redirect()->route('products.index');
+        return $this->redirect(route('products.index'), navigate: true);
     }
 
     public function render()

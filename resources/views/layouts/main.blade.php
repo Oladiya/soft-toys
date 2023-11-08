@@ -12,7 +12,7 @@
 <body class="page__body" >
 
         <header class="header">
-            <x-menu />
+            @livewire('menu')
         </header>
 
         <main class="main">

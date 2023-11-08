@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +33,12 @@ Route::prefix('products')
             ->name('edit');
 
     });
+
+Route::get('/login', \App\Livewire\Login::class)
+    ->name('login');
+Route::get('/register', \App\Livewire\Register::class)
+    ->name('register');
+Route::get('/logout', function () {
+  Auth::logout();
+  return redirect()->back();
+})->name('logout');

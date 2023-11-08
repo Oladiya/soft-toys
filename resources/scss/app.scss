@@ -29,7 +29,15 @@
         width: min(95vw, 1400px);
         border-radius: 45px;
         display: flex;
+        gap: 10px;
         justify-content: space-between;
+    }
+}
+
+.container {
+    & .left {
+        display: flex;
+        gap: 2vw;
     }
 }
 
@@ -77,7 +85,6 @@
 }
 
 .nav {
-    width: 45%;
     & ul {
         display: flex;
         justify-content: space-between;
@@ -86,8 +93,10 @@
         height: 100%;
         width: 100%;
         padding: 0;
+        gap: 5vw;
     }
     & li {
+
     }
     & a {
         text-decoration: none;
@@ -99,10 +108,11 @@
 }
 
 .login {
-    width: 35%;
+    padding: 0 20px;
     background-color: $color-5;
     border-radius: 45px;
     display: flex;
+    gap: 12px;
     justify-content: space-evenly;
     align-items: center;
 
@@ -399,8 +409,7 @@ h3 {
     &__button {
 
         display: block;
-        padding: 5px 0;
-        width: 120px;
+        padding: 5px 10px;
         background-color: $color-4;
         border: 3px solid $color-2;
         border-radius: 16px;

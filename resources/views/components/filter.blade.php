@@ -17,12 +17,25 @@
     @unless($collapse)
         <ul class="list filter__body">
             @foreach($items as $item)
-                <li class="list__item list__item_filter">
-                    <label>
-                        <input wire:model.change="{{ $inputName }}" value="{{ $item }}"
-                               type="checkbox"> @lang($item)
-                    </label>
-                </li>
+                @if($item['count'] > 0)
+                    <li class="list__item list__item_filter">
+                        <label>
+                            <input wire:model.change="{{ $inputName }}" value="{{ $item['name'] }}"
+                                   type="checkbox"> @lang($item['name']) ({{ $item['count'] }})
+                        </label>
+                    </li>
+                @endif
+            @endforeach
+
+            @foreach($items as $item)
+                @if($item['count'] === 0)
+                    <li class="list__item list__item_filter list__item_unactive">
+                        <label>
+                            <input wire:model.change="{{ $inputName }}" value="{{ $item['name'] }}"
+                                   type="checkbox"> @lang($item['name']) ({{ $item['count'] }})
+                        </label>
+                    </li>
+                @endif
             @endforeach
         </ul>
     @endunless

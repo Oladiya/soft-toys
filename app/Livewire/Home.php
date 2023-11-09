@@ -23,7 +23,7 @@ class Home extends Component
     #[Url(as: 'priceMax')]
     public $priceMaxInput = '';
     public $collapsePrice = false;
-    public $sizes;
+    public $sizes = [];
     #[Url(as: 'size')]
     public $sizeInputs = [];
     public $collapseSizes = false;
@@ -43,27 +43,42 @@ class Home extends Component
 
         $brands = Product::select('brand')->distinct()->get();
         foreach ($brands as $brand) {
-            array_push($this->brands, $brand->brand);
+            $count = Product::where('brand', $brand->brand)->count();
+            array_push($this->brands, [
+                'name' => $brand->brand,
+                'count' => $count,
+            ]);
         }
 
         $this->priceMin = Product::min('price');
         $this->priceMax = Product::max('price');
 
-        $this->sizes = [
+        $sizes = [
             'small',
             'medium',
             'large',
         ];
-        $types = Product::select('type')->distinct()->get();
+        foreach ($sizes as $size) {
+            $count = Product::where('size', $size)->count();
+            array_push($this->sizes, [
+                'name' => $size,
+                'count' => $count,
+            ]);
+        }
 
+        $types = Product::select('type')->distinct()->get();
         foreach ($types as $type) {
-            array_push($this->types, $type->type);
+            $count = Product::where('type', $type->type)->count();
+            array_push($this->types, [
+                'name' => $type->type,
+                'count' => $count,
+            ]);
         }
     }
 
     public function render()
     {
-        $this->products = Product::when($this->categoryInput, function ($q) {
+        $products = Product::when($this->categoryInput, function ($q) {
             $q->where('category', $this->categoryInput);
         })
             ->when($this->brandInputs, function ($q) {
@@ -79,14 +94,40 @@ class Home extends Component
                 $q->whereIn('size', $this->sizeInputs);
             })->when($this->typeInputs, function ($q) {
                 $q->whereIn('type', $this->typeInputs);
+            });
+
+        $this->products = $products->get();
+        $this->brands = $this->count($this->brands, 'brand');
+        $this->sizes = $this->count($this->sizes, 'size');
+        $this->types = $this->count($this->types, 'type');
+
+        return view('livewire.pages.home');
+    }
+
+    protected function count(array $items, string $field)
+    {
+        foreach ($items as $key => $item) {
+            $count = Product::when($this->categoryInput, function ($q) {
+                $q->where('category', $this->categoryInput);
             })
-            ->get();
-        return view('livewire.pages.home', [
-            'products' => $this->products,
-            'categories' => $this->categories,
-        ]);
+                ->when($this->brandInputs, function ($q) {
+                    $q->whereIn('brand', $this->brandInputs);
+                })
+                ->when($this->priceMinInput, function ($q) {
+                    $q->where('price', '>', $this->priceMinInput);
+                })
+                ->when($this->priceMaxInput, function ($q) {
+                    $q->where('price', '<', $this->priceMaxInput);
+                })
+                ->when($this->sizeInputs, function ($q) {
+                    $q->whereIn('size', $this->sizeInputs);
+                })->when($this->typeInputs, function ($q) {
+                    $q->whereIn('type', $this->typeInputs);
+                })->where($field, $item['name'])->count();
+            $items[$key]['count'] = $count;
+        }
 
-
+        return $items;
     }
 
     public function clearCategories()
@@ -109,6 +150,7 @@ class Home extends Component
     {
         $this->sizeInputs = [];
     }
+
     public function clearTypes()
     {
         $this->typeInputs = [];

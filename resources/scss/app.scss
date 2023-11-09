@@ -190,6 +190,10 @@
         &_filter {
             padding: 2px 0;
         }
+
+        &_unactive {
+            opacity: 0.5;
+        }
     }
 }
 

@@ -41,63 +41,23 @@
 
             <div class="br"></div>
 
-            <div class="filter">
-                <div class="filter__header">
-                    <div class="filter__title">@lang('Бренд')</div>
-                    <div class="row row_center">
-                        @if($brandInputs !== [])
-                            <div wire:click="clearBrands" class="filter__clear">@lang('Очистить')</div>
-                        @endif
-                        @if($collapseBrands)
-                            <div wire:click="$toggle('collapseBrands')" class="filter__expand"></div>
-                        @else
-                            <div wire:click="$toggle('collapseBrands')" class="filter__collapse"></div>
-                        @endif
-                    </div>
-                </div>
-                @unless($collapseBrands)
-                    <ul class="list filter__body">
-                        @foreach($brands as $brand)
-                            <li class="list__item list__item_filter">
-                                <label>
-                                    <input wire:model.change="brandInputs" value="{{ $brand }}"
-                                           type="checkbox"> {{ $brand }}
-                                </label>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endunless
-            </div>
+            <x-filter :input="$brandInputs"
+                      inputName="brandInputs"
+                      clearFunction="clearBrands"
+                      :collapse="$collapseBrands"
+                      collapseFunction="collapseBrands"
+                      :items="$brands"
+                      title="Бренд" />
 
             <div class="br"></div>
 
-            <div class="filter">
-                <div class="filter__header">
-                    <div class="filter__title">@lang('Размер')</div>
-                    <div class="row row_center">
-                        @if($sizeInputs !== [])
-                            <div wire:click="clearSizes" class="filter__clear">@lang('Очистить')</div>
-                        @endif
-                        @if($collapseSizes)
-                            <div wire:click="$toggle('collapseSizes')" class="filter__expand"></div>
-                        @else
-                            <div wire:click="$toggle('collapseSizes')" class="filter__collapse"></div>
-                        @endif
-                    </div>
-                </div>
-                @unless($collapseSizes)
-                    <ul class="list filter__body">
-                        @foreach($sizes as $size)
-                            <li class="list__item list__item_filter">
-                                <label>
-                                    <input wire:model.change="sizeInputs" value="{{ $size }}"
-                                           type="checkbox"> @lang($size)
-                                </label>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endunless
-            </div>
+            <x-filter :input="$sizeInputs"
+                      inputName="sizeInputs"
+                      clearFunction="clearSizes"
+                      :collapse="$collapseSizes"
+                      collapseFunction="collapseSizes"
+                      :items="$sizes"
+                      title="Размер" />
 
             <div class="br"></div>
 

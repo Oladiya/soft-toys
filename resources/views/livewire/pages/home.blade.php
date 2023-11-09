@@ -51,6 +51,16 @@
 
             <div class="br"></div>
 
+            <x-filter :input="$typeInputs"
+                      inputName="typeInputs"
+                      clearFunction="clearTypes"
+                      :collapse="$collapseTypes"
+                      collapseFunction="collapseTypes"
+                      :items="$types"
+                      title="Тип" />
+
+            <div class="br"></div>
+
             <x-filter :input="$sizeInputs"
                       inputName="sizeInputs"
                       clearFunction="clearSizes"

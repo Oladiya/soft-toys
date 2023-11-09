@@ -13,7 +13,7 @@ class Home extends Component
     #[Url(as: 'category')]
     public $categoryInput = '';
     public $brands = [];
-    #[Url(as: 'brands')]
+    #[Url(as: 'brand')]
     public $brandInputs = [];
     public $collapseBrands = false;
     public $priceMin;
@@ -27,6 +27,10 @@ class Home extends Component
     #[Url(as: 'size')]
     public $sizeInputs = [];
     public $collapseSizes = false;
+    public $types = [];
+    #[Url(as: 'type')]
+    public $typeInputs = [];
+    public $collapseTypes = false;
 
     public function mount()
     {
@@ -50,6 +54,11 @@ class Home extends Component
             'medium',
             'large',
         ];
+        $types = Product::select('type')->distinct()->get();
+
+        foreach ($types as $type) {
+            array_push($this->types, $type->type);
+        }
     }
 
     public function render()
@@ -68,7 +77,10 @@ class Home extends Component
             })
             ->when($this->sizeInputs, function ($q) {
                 $q->whereIn('size', $this->sizeInputs);
-            })->get();
+            })->when($this->typeInputs, function ($q) {
+                $q->whereIn('type', $this->typeInputs);
+            })
+            ->get();
         return view('livewire.pages.home', [
             'products' => $this->products,
             'categories' => $this->categories,
@@ -97,11 +109,16 @@ class Home extends Component
     {
         $this->sizeInputs = [];
     }
+    public function clearTypes()
+    {
+        $this->typeInputs = [];
+    }
 
     public function clearAll()
     {
         $this->clearBrands();
         $this->clearPrices();
         $this->clearSizes();
+        $this->clearTypes();
     }
 }

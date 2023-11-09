@@ -129,6 +129,10 @@
     display: flex;
     justify-content: center;
 
+    &_center {
+        align-items: center;
+    }
+
     &_between {
         justify-content: space-between;
     }
@@ -150,8 +154,22 @@
 
 .widget {
     background-color: $color-3;
-    border-radius: 8%;
+    border-radius: 20px;
     padding: 8px;
+
+    &__button {
+        border: none;
+        border-radius: 20px;
+        padding: 4% 20%;
+        margin: 4px 0;
+        background-color: $color-1;
+        color: $color-5;
+    }
+}
+
+.center {
+    display: flex;
+    justify-content: center;
 }
 
 .list {
@@ -289,7 +307,8 @@
     justify-content: space-evenly;
 }
 
-.filters {
+.filter {
+    padding: 4px 0;
 
     &__header {
         display: flex;
@@ -327,12 +346,16 @@
         font-weight: bold;
     }
 
-    & .br {
-        width: 92%;
-        margin: 3px 4%;
-        background-color: $color-5;
-        height: 2px;
+    &__body {
+        padding: 6px;
     }
+}
+
+.br {
+    width: 92%;
+    margin: 4px 4%;
+    background-color: $color-5;
+    height: 2px;
 }
 
 .content {
@@ -551,12 +574,36 @@
 
 .brands-filter {
 
-
-    &__list {
-        padding: 6px;
-    }
-
     &__item {
         padding: 2px 0;
+    }
+}
+
+.price {
+    &__box {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__input {
+        width: 34%;
+        background-color: $color-1;
+        border-radius: 15px;
+        border: 2px solid $color-4;
+        padding: 5px 10px;
+        color: $color-6;
+        font-size: 15px;
+
+        &::placeholder {
+            color: $color-6;
+            opacity: 0.5;
+        }
+
+        &:focus {
+            border-color: $color-5;
+            box-shadow: none;
+            outline: 0;
+            background-color: $color-2;
+        }
     }
 }

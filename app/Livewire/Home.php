@@ -16,6 +16,13 @@ class Home extends Component
     #[Url(as: 'brands')]
     public $brandInputs = [];
     public $collapseBrands = false;
+    public $priceMin;
+    public $priceMax;
+    #[Url(as: 'priceMin')]
+    public $inputPriceMin = '';
+    #[Url(as: 'priceMax')]
+    public $inputPriceMax = '';
+    public $collapsePrice = false;
 
     public function mount()
     {
@@ -25,10 +32,14 @@ class Home extends Component
                 array_push($this->categories, $category->category);
             }
         }
+
         $brands = Product::select('brand')->distinct()->get();
         foreach ($brands as $brand) {
             array_push($this->brands, $brand->brand);
         }
+
+        $this->priceMin = Product::min('price');
+        $this->priceMax = Product::max('price');
     }
 
     public function render()
@@ -37,6 +48,10 @@ class Home extends Component
             $q->where('category', $this->categoryInput);
         })->when($this->brandInputs, function ($q) {
             $q->whereIn('brand', $this->brandInputs);
+        })->when($this->inputPriceMin, function ($q){
+            $q->where('price', '>', $this->inputPriceMin);
+        })->when($this->inputPriceMax, function ($q){
+            $q->where('price', '<', $this->inputPriceMax);
         })->get();
         return view('livewire.pages.home', [
             'products' => $this->products,
@@ -46,13 +61,25 @@ class Home extends Component
 
     }
 
-    public function allCategories()
+    public function clearCategories()
     {
         $this->categoryInput = '';
     }
 
-    public function allBrands()
+    public function clearBrands()
     {
         $this->brandInputs = [];
+    }
+
+    public function clearPrices()
+    {
+        $this->inputPriceMin = '';
+        $this->inputPriceMax = '';
+    }
+
+    public function clearAll()
+    {
+        $this->clearBrands();
+        $this->clearPrices();
     }
 }

@@ -2,7 +2,7 @@
     <div class="sidebar">
         <div class="widget categories">
             <h3 class="categories__title @if($categoryInput === '') categories__title_active @endif"
-                wire:click="allCategories">Мягкие игрушки</h3>
+                wire:click="clearCategories">Мягкие игрушки</h3>
             <ul class="list">
                 @foreach($categories as $category)
                     <li class="list__item categories__item @if($category === $categoryInput) list__item_active @endif">
@@ -14,35 +14,67 @@
                 @endforeach
             </ul>
         </div>
-        <div class="widget filters">
-            <div class="brands-filter">
-                <div class="filters__header">
-                    <div class="filters__title">@lang('Бренд')</div>
-                    <div class="row">
+
+        <div class="widget">
+
+            <div class="filter brands-filter">
+                <div class="filter__header">
+                    <div class="filter__title">@lang('Цена') ₽</div>
+                    <div class="row row_center">
+                        @if($inputPriceMin !== '' or $inputPriceMax !== '')
+                            <div wire:click="clearPrices" class="filter__clear">@lang('Очистить')</div>
+                        @endif
+                        @if($collapsePrice)
+                            <div wire:click="$toggle('collapsePrice')" class="filter__expand"></div>
+                        @else
+                            <div wire:click="$toggle('collapsePrice')" class="filter__collapse"></div>
+                        @endif
+                    </div>
+                </div>
+                @unless($collapsePrice)
+                    <div class="filter__body price__box">
+                        <input class="price__input" wire:model.live.debounce.150ms="inputPriceMin" placeholder="{{ $priceMin }}" type="text">
+                        <input class="price__input" wire:model.live.debounce.150ms="inputPriceMax" placeholder="{{ $priceMax }}" type="text">
+                    </div>
+                @endunless
+            </div>
+
+            <div class="br"></div>
+
+            <div class="filter brands-filter">
+                <div class="filter__header">
+                    <div class="filter__title">@lang('Бренд')</div>
+                    <div class="row row_center">
                         @if($brandInputs !== [])
-                            <div wire:click="allBrands" class="filters__clear">@lang('Очистить')</div>
+                            <div wire:click="clearBrands" class="filter__clear">@lang('Очистить')</div>
                         @endif
                         @if($collapseBrands)
-                            <div wire:click="$toggle('collapseBrands')" class="filters__expand"></div>
+                            <div wire:click="$toggle('collapseBrands')" class="filter__expand"></div>
                         @else
-                            <div wire:click="$toggle('collapseBrands')" class="filters__collapse"></div>
+                            <div wire:click="$toggle('collapseBrands')" class="filter__collapse"></div>
                         @endif
                     </div>
                 </div>
                 @unless($collapseBrands)
-                    <ul class="list brands-filter__list">
+                    <ul class="list filter__body">
                         @foreach($brands as $brand)
                             <li class="list__item brands-filter__item">
                                 <label>
-                                    <input name="brandInputs" wire:model.change="brandInputs" value="{{ $brand }}"
-                                           type="checkbox">{{ $brand }}
+                                    <input wire:model.change="brandInputs" value="{{ $brand }}"
+                                           type="checkbox"> {{ $brand }}
                                 </label>
                             </li>
                         @endforeach
                     </ul>
                 @endunless
-                <div class="br"></div>
             </div>
+
+            <div class="br"></div>
+
+            <div class="center">
+                <button wire:click="clearAll" class="widget__button">@lang('Очистить всё')</button>
+            </div>
+
         </div>
     </div>
 

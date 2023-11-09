@@ -19,10 +19,14 @@ class Home extends Component
     public $priceMin;
     public $priceMax;
     #[Url(as: 'priceMin')]
-    public $inputPriceMin = '';
+    public $priceMinInput = '';
     #[Url(as: 'priceMax')]
-    public $inputPriceMax = '';
+    public $priceMaxInput = '';
     public $collapsePrice = false;
+    public $sizes;
+    #[Url(as: 'size')]
+    public $sizeInputs = [];
+    public $collapseSizes = false;
 
     public function mount()
     {
@@ -40,19 +44,31 @@ class Home extends Component
 
         $this->priceMin = Product::min('price');
         $this->priceMax = Product::max('price');
+
+        $this->sizes = [
+            'small',
+            'medium',
+            'large',
+        ];
     }
 
     public function render()
     {
         $this->products = Product::when($this->categoryInput, function ($q) {
             $q->where('category', $this->categoryInput);
-        })->when($this->brandInputs, function ($q) {
-            $q->whereIn('brand', $this->brandInputs);
-        })->when($this->inputPriceMin, function ($q){
-            $q->where('price', '>', $this->inputPriceMin);
-        })->when($this->inputPriceMax, function ($q){
-            $q->where('price', '<', $this->inputPriceMax);
-        })->get();
+        })
+            ->when($this->brandInputs, function ($q) {
+                $q->whereIn('brand', $this->brandInputs);
+            })
+            ->when($this->priceMinInput, function ($q) {
+                $q->where('price', '>', $this->priceMinInput);
+            })
+            ->when($this->priceMaxInput, function ($q) {
+                $q->where('price', '<', $this->priceMaxInput);
+            })
+            ->when($this->sizeInputs, function ($q) {
+                $q->whereIn('size', $this->sizeInputs);
+            })->get();
         return view('livewire.pages.home', [
             'products' => $this->products,
             'categories' => $this->categories,
@@ -73,13 +89,19 @@ class Home extends Component
 
     public function clearPrices()
     {
-        $this->inputPriceMin = '';
-        $this->inputPriceMax = '';
+        $this->priceMinInput = '';
+        $this->priceMaxInput = '';
+    }
+
+    public function clearSizes()
+    {
+        $this->sizeInputs = [];
     }
 
     public function clearAll()
     {
         $this->clearBrands();
         $this->clearPrices();
+        $this->clearSizes();
     }
 }

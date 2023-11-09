@@ -186,6 +186,10 @@
             background-color: $color-4;
             color: $color-1;
         }
+
+        &_filter {
+            padding: 2px 0;
+        }
     }
 }
 
@@ -569,13 +573,6 @@
             color: $color-1;
             border-radius: 8px;
         }
-    }
-}
-
-.brands-filter {
-
-    &__item {
-        padding: 2px 0;
     }
 }
 

@@ -31,9 +31,9 @@
                 <select wire:model="size" id="size">
                     <option>@lang('Выберите...')</option>
 
-                    <option value="small">@lang('маленькие')</option>
-                    <option value="medium">@lang('средние')</option>
-                    <option value="large">@lang('большие')</option>
+                    <option value="small">@lang('small')</option>
+                    <option value="medium">@lang('medium')</option>
+                    <option value="large">@lang('large')</option>
                 </select>
 
                 @error('size')

@@ -17,11 +17,11 @@
 
         <div class="widget">
 
-            <div class="filter brands-filter">
+            <div class="filter">
                 <div class="filter__header">
                     <div class="filter__title">@lang('Цена') ₽</div>
                     <div class="row row_center">
-                        @if($inputPriceMin !== '' or $inputPriceMax !== '')
+                        @if($priceMinInput !== '' or $priceMaxInput !== '')
                             <div wire:click="clearPrices" class="filter__clear">@lang('Очистить')</div>
                         @endif
                         @if($collapsePrice)
@@ -33,15 +33,15 @@
                 </div>
                 @unless($collapsePrice)
                     <div class="filter__body price__box">
-                        <input class="price__input" wire:model.live.debounce.150ms="inputPriceMin" placeholder="{{ $priceMin }}" type="text">
-                        <input class="price__input" wire:model.live.debounce.150ms="inputPriceMax" placeholder="{{ $priceMax }}" type="text">
+                        <input class="price__input" wire:model.live.debounce.150ms="priceMinInput" placeholder="{{ $priceMin }}" type="text">
+                        <input class="price__input" wire:model.live.debounce.150ms="priceMaxInput" placeholder="{{ $priceMax }}" type="text">
                     </div>
                 @endunless
             </div>
 
             <div class="br"></div>
 
-            <div class="filter brands-filter">
+            <div class="filter">
                 <div class="filter__header">
                     <div class="filter__title">@lang('Бренд')</div>
                     <div class="row row_center">
@@ -58,10 +58,40 @@
                 @unless($collapseBrands)
                     <ul class="list filter__body">
                         @foreach($brands as $brand)
-                            <li class="list__item brands-filter__item">
+                            <li class="list__item list__item_filter">
                                 <label>
                                     <input wire:model.change="brandInputs" value="{{ $brand }}"
                                            type="checkbox"> {{ $brand }}
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endunless
+            </div>
+
+            <div class="br"></div>
+
+            <div class="filter">
+                <div class="filter__header">
+                    <div class="filter__title">@lang('Размер')</div>
+                    <div class="row row_center">
+                        @if($sizeInputs !== [])
+                            <div wire:click="clearSizes" class="filter__clear">@lang('Очистить')</div>
+                        @endif
+                        @if($collapseSizes)
+                            <div wire:click="$toggle('collapseSizes')" class="filter__expand"></div>
+                        @else
+                            <div wire:click="$toggle('collapseSizes')" class="filter__collapse"></div>
+                        @endif
+                    </div>
+                </div>
+                @unless($collapseSizes)
+                    <ul class="list filter__body">
+                        @foreach($sizes as $size)
+                            <li class="list__item list__item_filter">
+                                <label>
+                                    <input wire:model.change="sizeInputs" value="{{ $size }}"
+                                           type="checkbox"> @lang($size)
                                 </label>
                             </li>
                         @endforeach

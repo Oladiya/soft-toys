@@ -71,6 +71,16 @@
 
             <div class="br"></div>
 
+            <x-filter :input="$designAndConstructionInputs"
+                      inputName="designAndConstructionInputs"
+                      clearFunction="clearDesignAndConstructions"
+                      :collapse="$collapseDesignAndConstructions"
+                      collapseFunction="collapseDesignAndConstructions"
+                      :items="$designAndConstructions"
+                      title="Дизайн и конструкция" />
+
+            <div class="br"></div>
+
             <x-filter :input="$sizeInputs"
                       inputName="sizeInputs"
                       clearFunction="clearSizes"

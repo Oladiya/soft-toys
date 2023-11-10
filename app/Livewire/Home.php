@@ -35,13 +35,17 @@ class Home extends Component
     #[Url(as: 'view')]
     public $viewInputs = [];
     public $collapseViews = false;
+    public $designAndConstructions = [];
+    #[Url(as: 'design_and_construction')]
+    public $designAndConstructionInputs = [];
+    public $collapseDesignAndConstructions = false;
 
     public function mount()
     {
         $categories = Product::select('category')->distinct()->get();
         foreach ($categories as $category) {
             if (!is_null($category->category)) {
-                array_push($this->categories, $category->category);
+                $this->categories[] = $category->category;
             }
         }
 
@@ -87,6 +91,17 @@ class Home extends Component
                 'count' => $count,
             ];
         }
+
+        $designAndConstructions = Product::select('design_and_construction')->distinct()->get();
+        foreach ($designAndConstructions as $designAndConstruction) {
+            $count = Product::where('design_and_construction', $designAndConstruction->design_and_construction)->count();
+            if (!is_null($designAndConstruction->design_and_construction)) {
+                $this->designAndConstructions[] = [
+                    'name' => $designAndConstruction->design_and_construction,
+                    'count' => $count,
+                ];
+            }
+        }
     }
 
     public function render()
@@ -109,6 +124,8 @@ class Home extends Component
                 $q->whereIn('type', $this->typeInputs);
             })->when($this->viewInputs, function ($q) {
                 $q->whereIn('view', $this->viewInputs);
+            })->when($this->designAndConstructionInputs, function ($q) {
+                $q->whereIn('design_and_construction', $this->designAndConstructionInputs);
             });
 
         $this->products = $products->get();
@@ -116,6 +133,7 @@ class Home extends Component
         $this->sizes = $this->count($this->sizes, 'size');
         $this->types = $this->count($this->types, 'type');
         $this->views = $this->count($this->views, 'view');
+        $this->designAndConstructions = $this->count($this->designAndConstructions, 'design_and_construction');
 
         return view('livewire.pages.home');
     }
@@ -143,6 +161,8 @@ class Home extends Component
                 })
                 ->when($this->viewInputs, function ($q) {
                     $q->whereIn('view', $this->viewInputs);
+                })->when($this->designAndConstructionInputs, function ($q) {
+                    $q->whereIn('design_and_construction', $this->designAndConstructionInputs);
                 });
 
             $count = $countRequest->where($field, $item['name'])->count();
@@ -184,6 +204,11 @@ class Home extends Component
         $this->viewInputs = [];
     }
 
+    public function clearDesignAndConstructions()
+    {
+        $this->designAndConstructionInputs = [];
+    }
+
     public function clearAll()
     {
         $this->clearBrands();
@@ -191,5 +216,6 @@ class Home extends Component
         $this->clearSizes();
         $this->clearTypes();
         $this->clearViews();
+        $this->clearDesignAndConstructions();
     }
 }

@@ -31,6 +31,10 @@ class Home extends Component
     #[Url(as: 'type')]
     public $typeInputs = [];
     public $collapseTypes = false;
+    public $views = [];
+    #[Url(as: 'view')]
+    public $viewInputs = [];
+    public $collapseViews = false;
 
     public function mount()
     {
@@ -44,10 +48,10 @@ class Home extends Component
         $brands = Product::select('brand')->distinct()->get();
         foreach ($brands as $brand) {
             $count = Product::where('brand', $brand->brand)->count();
-            array_push($this->brands, [
+            $this->brands[] = [
                 'name' => $brand->brand,
                 'count' => $count,
-            ]);
+            ];
         }
 
         $this->priceMin = Product::min('price');
@@ -60,19 +64,28 @@ class Home extends Component
         ];
         foreach ($sizes as $size) {
             $count = Product::where('size', $size)->count();
-            array_push($this->sizes, [
+            $this->sizes[] = [
                 'name' => $size,
                 'count' => $count,
-            ]);
+            ];
         }
 
         $types = Product::select('type')->distinct()->get();
         foreach ($types as $type) {
             $count = Product::where('type', $type->type)->count();
-            array_push($this->types, [
+            $this->types[] = [
                 'name' => $type->type,
                 'count' => $count,
-            ]);
+            ];
+        }
+
+        $views = Product::select('view')->distinct()->get();
+        foreach ($views as $view) {
+            $count = Product::where('view', $view->view)->count();
+            $this->views[] = [
+                'name' => $view->view,
+                'count' => $count,
+            ];
         }
     }
 
@@ -94,12 +107,15 @@ class Home extends Component
                 $q->whereIn('size', $this->sizeInputs);
             })->when($this->typeInputs, function ($q) {
                 $q->whereIn('type', $this->typeInputs);
+            })->when($this->viewInputs, function ($q) {
+                $q->whereIn('view', $this->viewInputs);
             });
 
         $this->products = $products->get();
         $this->brands = $this->count($this->brands, 'brand');
         $this->sizes = $this->count($this->sizes, 'size');
         $this->types = $this->count($this->types, 'type');
+        $this->views = $this->count($this->views, 'view');
 
         return view('livewire.pages.home');
     }
@@ -107,7 +123,7 @@ class Home extends Component
     protected function count(array $items, string $field)
     {
         foreach ($items as $key => $item) {
-            $count = Product::when($this->categoryInput, function ($q) {
+            $countRequest = Product::when($this->categoryInput, function ($q) {
                 $q->where('category', $this->categoryInput);
             })
                 ->when($this->brandInputs, function ($q) {
@@ -121,9 +137,16 @@ class Home extends Component
                 })
                 ->when($this->sizeInputs, function ($q) {
                     $q->whereIn('size', $this->sizeInputs);
-                })->when($this->typeInputs, function ($q) {
+                })
+                ->when($this->typeInputs, function ($q) {
                     $q->whereIn('type', $this->typeInputs);
-                })->where($field, $item['name'])->count();
+                })
+                ->when($this->viewInputs, function ($q) {
+                    $q->whereIn('view', $this->viewInputs);
+                });
+
+            $count = $countRequest->where($field, $item['name'])->count();
+
             $items[$key]['count'] = $count;
         }
 
@@ -156,11 +179,17 @@ class Home extends Component
         $this->typeInputs = [];
     }
 
+    public function clearViews()
+    {
+        $this->viewInputs = [];
+    }
+
     public function clearAll()
     {
         $this->clearBrands();
         $this->clearPrices();
         $this->clearSizes();
         $this->clearTypes();
+        $this->clearViews();
     }
 }

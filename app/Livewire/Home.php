@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Http\Controllers\CartController;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Url;
 use App\Models\Product;
 use Livewire\Component;
@@ -39,6 +41,7 @@ class Home extends Component
     #[Url(as: 'design_and_construction')]
     public $designAndConstructionInputs = [];
     public $collapseDesignAndConstructions = false;
+    public $cart;
 
     public function mount()
     {
@@ -217,5 +220,31 @@ class Home extends Component
         $this->clearTypes();
         $this->clearViews();
         $this->clearDesignAndConstructions();
+    }
+
+    public function addToCart($id, Request $request)
+    {
+        $found = false;
+
+        if ($request->session()->has('cart')) {
+            $this->cart = $request->session()->pull('cart');
+
+            foreach ($this->cart as $key => $item) {
+                if (!$found && $item['id'] === $id) {
+                    $this->cart[$key]['count']++;
+                    $found = true;
+                }
+            }
+        }
+
+        if (!$found && Product::find($id)) {
+            $this->cart[] = [
+                'id' => $id,
+                'count' => 1,
+            ];
+        }
+
+        $request->session()->put(['cart' => $this->cart]);
+        $this->dispatch('update-cart-count');
     }
 }

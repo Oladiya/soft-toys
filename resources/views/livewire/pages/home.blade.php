@@ -33,8 +33,10 @@
                 </div>
                 @unless($collapsePrice)
                     <div class="filter__body price__box">
-                        <input class="price__input" wire:model.live.debounce.150ms="priceMinInput" placeholder="{{ $priceMin }}" type="text">
-                        <input class="price__input" wire:model.live.debounce.150ms="priceMaxInput" placeholder="{{ $priceMax }}" type="text">
+                        <input class="price__input" wire:model.live.debounce.150ms="priceMinInput"
+                               placeholder="{{ $priceMin }}" type="text">
+                        <input class="price__input" wire:model.live.debounce.150ms="priceMaxInput"
+                               placeholder="{{ $priceMax }}" type="text">
                     </div>
                 @endunless
             </div>
@@ -47,7 +49,7 @@
                       :collapse="$collapseBrands"
                       collapseFunction="collapseBrands"
                       :items="$brands"
-                      title="Бренд" />
+                      title="Бренд"/>
 
             <div class="br"></div>
 
@@ -57,7 +59,7 @@
                       :collapse="$collapseViews"
                       collapseFunction="collapseViews"
                       :items="$views"
-                      title="Вид" />
+                      title="Вид"/>
 
             <div class="br"></div>
 
@@ -67,7 +69,7 @@
                       :collapse="$collapseTypes"
                       collapseFunction="collapseTypes"
                       :items="$types"
-                      title="Тип" />
+                      title="Тип"/>
 
             <div class="br"></div>
 
@@ -77,7 +79,7 @@
                       :collapse="$collapseDesignAndConstructions"
                       collapseFunction="collapseDesignAndConstructions"
                       :items="$designAndConstructions"
-                      title="Дизайн и конструкция" />
+                      title="Дизайн и конструкция"/>
 
             <div class="br"></div>
 
@@ -87,7 +89,7 @@
                       :collapse="$collapseSizes"
                       collapseFunction="collapseSizes"
                       :items="$sizes"
-                      title="Размер" />
+                      title="Размер"/>
 
             <div class="br"></div>
 
@@ -114,7 +116,14 @@
                             <span class="rating @if($j <= $rating) rating_active-star @endif "></span>
                         @endfor
                     </div>
-                    <a href="#" class="product__button">В корзину</a>
+                    <button
+                        @guest
+                            wire:confirm="Для добавления товара в корзину, мы должны знать кто Вы. Хотите войти?"
+                        @endguest
+                        wire:click="addToCart({{ $product->id }})"
+                        class="product__button">
+                        В корзину
+                    </button>
                 </div>
 
             @endforeach

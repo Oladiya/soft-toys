@@ -16,7 +16,7 @@
                 <button
                     type="button"
                     wire:click="delete({{ $product->id }})"
-                    wire:confirm="Are you sure you want to delete this post?"
+                    wire:confirm="Вы уверены, что хотите удалить данный товар?"
                     class="product__admin-button product__admin-button_delete">
                     @lang('Удалить')
                 </button>

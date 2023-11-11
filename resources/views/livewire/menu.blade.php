@@ -10,7 +10,7 @@
                 <ul>
                     <li><a livewire:navigate href="{{ route('home') }}">@lang('Игрушки')</a></li>
                     <li><a livewire:navigate href="#">@lang('О нас')</a></li>
-                    <li><a livewire:navigate href="#"><span class="shopping-cart-icon"></span> @lang('Корзина')</a></li>
+                    <li><a livewire:navigate href="{{ route('cart') }}"><span class="shopping-cart-icon"></span> @lang('Корзина') @if($cartCount > 0) <span class="cart-count">({{ $cartCount }})</span> @endif</a></li>
                 </ul>
             </nav>
         </div>

@@ -38,7 +38,5 @@ Route::get('/login', \App\Livewire\Login::class)
     ->name('login');
 Route::get('/register', \App\Livewire\Register::class)
     ->name('register');
-Route::get('/logout', function () {
-  Auth::logout();
-  return redirect()->back();
-})->name('logout');
+Route::get('/cart', \App\Livewire\Cart::class)
+    ->name('cart');

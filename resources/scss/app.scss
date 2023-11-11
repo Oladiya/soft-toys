@@ -645,6 +645,10 @@
 
         &__cell {
             padding: 3px 10px;
+
+            &_name {
+                width: 60vw;
+            }
         }
 
         &__stroke {
@@ -655,7 +659,7 @@
                 color: $color-1;
 
                 & .cart-table__cell {
-                    outline: thin solid $color-3;
+                    //nothing
                 }
             }
         }
@@ -717,6 +721,28 @@
             background-color: $color-2;
             border-color: $color-3;
             color: $color-4;
+        }
+    }
+}
+
+.order {
+
+    &s {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    &-text {
+        padding: 2px;
+
+        & span {
+            color: $color-5;
+        }
+
+        &-box {
+            padding: 0 10px;
         }
     }
 }

@@ -11,6 +11,8 @@ class Cart extends Component
 {
     public $cart = [];
     public $products = [];
+    public $totalCount;
+    public $totalPrice;
 
     public function mount(Request $request)
     {
@@ -80,6 +82,8 @@ class Cart extends Component
     protected function refreshProducts(Request $request)
     {
         $this->products = [];
+        $this->totalCount = 0;
+        $this->totalPrice = 0;
 
         if ($request->session()->has('cart')) {
             $this->cart = $request->session()->get('cart');
@@ -87,6 +91,8 @@ class Cart extends Component
                 $product = Product::find($item['id']);
                 $this->products[$key] = $product;
                 $this->products[$key]['count'] = $item['count'];
+                $this->totalCount += $item['count'];
+                $this->totalPrice += $product->price * $item['count'];
             }
         }
     }
@@ -95,5 +101,10 @@ class Cart extends Component
     {
         $request->session()->forget('cart');
         $this->dispatch('update-cart-count');
+    }
+
+    public function createOrder()
+    {
+        return $this->redirect(route('orders.create'), navigate: true);
     }
 }

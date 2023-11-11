@@ -117,9 +117,6 @@
                         @endfor
                     </div>
                     <button
-                        @guest
-                            wire:confirm="Для добавления товара в корзину, мы должны знать кто Вы. Хотите войти?"
-                        @endguest
                         wire:click="addToCart({{ $product->id }})"
                         class="product__button">
                         В корзину

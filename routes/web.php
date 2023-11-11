@@ -40,3 +40,16 @@ Route::get('/register', \App\Livewire\Register::class)
     ->name('register');
 Route::get('/cart', \App\Livewire\Cart::class)
     ->name('cart');
+
+Route::prefix('orders')
+    ->name('orders.')
+    ->middleware(['auth'])
+    ->group(function () {
+
+        Route::get('/create', \App\Livewire\Orders\Create::class)
+            ->name('create');
+
+    });
+Route::get('/personal-account', \App\Livewire\PersonalAccount::class)
+    ->middleware(['auth'])
+    ->name('personal-account');

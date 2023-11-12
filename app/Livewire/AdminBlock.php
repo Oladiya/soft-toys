@@ -12,10 +12,14 @@ class AdminBlock extends Component
     }
 
     public function productList() {
-        return $this->redirect(route('products.index'), navigate: true);
+        $this->redirect(route('products.index'), navigate: true);
     }
 
     public function addProduct() {
-        return $this->redirect(route('products.create'), navigate: true);
+        $this->redirect(route('products.create'), navigate: true);
+    }
+
+    public function orderList() {
+        $this->redirect(route('orders.index'), navigate: true);
     }
 }

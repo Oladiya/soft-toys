@@ -3,10 +3,7 @@
 namespace App\Livewire\Products;
 
 use App\Models\Product;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Livewire\Livewire;
 use Livewire\WithFileUploads;
 
 class Edit extends Component

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Livewire\PersonalAccount;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model

@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Livewire\Attributes\Url;
 use App\Models\Product;

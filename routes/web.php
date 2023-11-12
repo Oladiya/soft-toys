@@ -48,6 +48,9 @@ Route::prefix('orders')
 
         Route::get('/create', \App\Livewire\Orders\Create::class)
             ->name('create');
+        Route::get('/', \App\Livewire\Orders\Index::class)
+            ->middleware('admin')
+            ->name('index');
 
     });
 Route::get('/personal-account', \App\Livewire\PersonalAccount::class)

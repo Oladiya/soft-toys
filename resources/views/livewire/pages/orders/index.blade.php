@@ -40,6 +40,19 @@
                     @lang('ФИО получателя'): <span>{{ $order->full_name }}</span>
                 </div>
             </div>
+
+            <div class="order-text-box">
+                <div class="order-text row">@lang('Изменить статус:')</div>
+                <div class="row">
+                    @foreach($availableStatuses as $status)
+                        <button
+                            wire:click="changeStatus({{ $order->id }}, '{{ $status }}')"
+                            class="form__button">
+                            @lang($status)
+                        </button>
+                    @endforeach
+                </div>
+            </div>
         </div>
     @endforeach
 </div>
